@@ -1,5 +1,6 @@
+from urllib import response
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for
+    Blueprint, flash, g, redirect, render_template, request, url_for, make_response
 )
 
 from werkzeug.exceptions import abort
@@ -17,7 +18,9 @@ def index():
         ' from post p join user u on p.author_id = u.id'
         ' order by created desc'
     ).fetchall()
-    return render_template('blog/index.html', posts=posts)
+    response = make_response(render_template('blog/index.html', posts=posts))
+    response.headers['Location'] = "/"
+    return response
 
 
 @bp.route('/create', methods=('GET', 'POST'))

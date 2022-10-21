@@ -1,5 +1,6 @@
 import os
-from flask import Flask
+from wsgiref.util import request_uri
+from flask import Flask, request
 
 
 def create_app(test_config=None):
@@ -36,5 +37,11 @@ def create_app(test_config=None):
     from . import blog
     app.register_blueprint(blog.bp)
     app.add_url_rule('/', endpoint='index')
+
+    # @app.after_request
+    # def add_location_header(resp):
+    #     # resp.headers["Location"] = resp.path
+    #     print(resp)
+    #     return resp
 
     return app

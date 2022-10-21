@@ -65,7 +65,7 @@ def login():
 
         flash(error)
 
-    return render_template('auth/login.html')
+    return render_template('auth/login.html'), 200, {"Location": "/"}
 
 
 @bp.before_app_request
